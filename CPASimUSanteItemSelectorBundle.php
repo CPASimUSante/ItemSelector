@@ -27,6 +27,6 @@ class CPASimUSanteItemSelectorBundle extends PluginBundle
 
     public function hasMigrations()
     {
-        return false;
+        return true;
     }
 }
