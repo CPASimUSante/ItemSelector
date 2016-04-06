@@ -48,7 +48,7 @@ class MainConfigController extends Controller
             $originalItems->add($item);
         }
 
-        //working because call to service_container in controller.yml
+        //working because call service_container in controller.yml
         $form = $this->get('form.factory')
             ->create(new MainConfigType(), $mainConfig);
         $form->handleRequest($request);
