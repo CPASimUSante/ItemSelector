@@ -23,28 +23,28 @@ class ItemSelectorType extends AbstractType
      */
     private $namePattern;
 
-    public function __construct($mainResourceType='', $resourceType='', $namePattern = '')
+    public function __construct($mainResourceType = '', $resourceType = '', $namePattern = '')
     {
         $this->mainResourceType = $mainResourceType;
-        $this->resourceType     = $resourceType;
-        $this->namePattern      = $namePattern;
+        $this->resourceType = $resourceType;
+        $this->namePattern = $namePattern;
     }
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add(
                 'name', 'hidden', array(
-                    'data' => 'itemselector'
+                    'data' => 'itemselector',
                 )
             )
             ->add(
                 'title', 'text', array(
-                    'label' => 'title'
+                    'label' => 'title',
                 )
             );
         //To avoid displaying them in ItemSelector Resource creation modal
@@ -54,21 +54,21 @@ class ItemSelectorType extends AbstractType
                     'resource', 'resourcePicker', array(
                         'required' => true,
                         'attr' => array(
-                            'data-is-picker-multi-select-allowed'   => 0,
-                            'data-is-directory-selection-allowed'   => 0,
-                            'data-type-white-list'                  => $this->mainResourceType,
+                            'data-is-picker-multi-select-allowed' => 0,
+                            'data-is-directory-selection-allowed' => 0,
+                            'data-type-white-list' => $this->mainResourceType,
                             /*'data-restrict-for-owner'               => 0,*/
                         ),
-                        'label' => 'resource_to_open'
+                        'label' => 'resource_to_open',
                     )
                 )
                 ->add(
                     'items', 'collection', array(
-                        'type'          => new ItemType($this->resourceType, $this->namePattern),
-                        'by_reference'  => false,
-                        'prototype'     => true,
-                        'allow_add'     => true,
-                        'allow_delete'  => true,
+                        'type' => new ItemType($this->resourceType, $this->namePattern),
+                        'by_reference' => false,
+                        'prototype' => true,
+                        'allow_add' => true,
+                        'allow_delete' => true,
                     )
                 )
             ;
@@ -80,7 +80,7 @@ class ItemSelectorType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'CPASimUSante\ItemSelectorBundle\Entity\ItemSelector',
             'translation_domain' => 'resource',
-            'inside' => true
+            'inside' => true,
         ));
     }
 

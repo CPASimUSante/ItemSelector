@@ -1,12 +1,6 @@
 <?php
+
 namespace CPASimUSante\ItemSelectorBundle\Manager;
-
-use Doctrine\ORM\EntityManager;
-use JMS\DiExtraBundle\Annotation as DI;
-use Symfony\Component\Form\FormFactoryInterface;
-use Claroline\CoreBundle\Persistence\ObjectManager;
-
-use Symfony\Component\HttpFoundation\Request;
 
 class PluginManager
 {
@@ -18,7 +12,5 @@ class PluginManager
 
     public function getPluginConfigForm()
     {
-
     }
-
 }

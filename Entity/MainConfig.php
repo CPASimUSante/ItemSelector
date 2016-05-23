@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * MainConfig
+ * MainConfig.
  *
  * @ORM\Table(name="cpasimusante__mainconfig")
  * @ORM\Entity(repositoryClass="CPASimUSante\ItemSelectorBundle\Repository\MainConfigRepository")
@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class MainConfig
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -30,7 +30,7 @@ class MainConfig
     protected $items;
 
     /**
-     * Class constructor
+     * Class constructor.
      */
     public function __construct()
     {
@@ -38,9 +38,9 @@ class MainConfig
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -48,7 +48,7 @@ class MainConfig
     }
 
     /**
-     * Add item
+     * Add item.
      *
      * @param \CPASimUSante\ItemSelectorBundle\Entity\MainConfigItem $item
      *
@@ -66,7 +66,7 @@ class MainConfig
     }
 
     /**
-     * Remove item
+     * Remove item.
      *
      * @param \CPASimUSante\ItemSelectorBundle\Entity\MainConfigItem $item
      */
@@ -76,7 +76,7 @@ class MainConfig
     }
 
     /**
-     * Get items
+     * Get items.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

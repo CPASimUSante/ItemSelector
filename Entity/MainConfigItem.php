@@ -5,7 +5,7 @@ namespace CPASimUSante\ItemSelectorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * MainConfigItem
+ * MainConfigItem.
  *
  * @ORM\Table(name="cpasimusante__mainconfig_item")
  * @ORM\Entity(repositoryClass="CPASimUSante\ItemSelectorBundle\Repository\MainConfigItemRepository")
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class MainConfigItem
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -22,21 +22,22 @@ class MainConfigItem
     private $id;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="itemcount", type="smallint")
      */
     private $itemCount;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="namepattern", type="string", length=255, nullable=true)
      */
     private $namePattern;
 
     /**
-     * Resource type to select
+     * Resource type to select.
+     *
      * @var \Claroline\CoreBundle\Entity\Resource\ResourceType
      *
      * @ORM\ManyToOne(targetEntity="Claroline\CoreBundle\Entity\Resource\ResourceType", cascade={"persist"})
@@ -45,7 +46,8 @@ class MainConfigItem
     private $resourceType;
 
     /**
-     * Main resource type to select
+     * Main resource type to select.
+     *
      * @var \Claroline\CoreBundle\Entity\Resource\ResourceType
      *
      * @ORM\ManyToOne(targetEntity="Claroline\CoreBundle\Entity\Resource\ResourceType", cascade={"persist"})
@@ -54,7 +56,8 @@ class MainConfigItem
     private $mainResourceType;
 
     /**
-     * Workspace to apply
+     * Workspace to apply.
+     *
      * @var \Claroline\CoreBundle\Entity\Workspace\Workspace
      *
      * @ORM\ManyToOne(targetEntity="Claroline\CoreBundle\Entity\Workspace\Workspace", cascade={"persist"})
@@ -71,9 +74,9 @@ class MainConfigItem
     protected $mainconfig;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -81,9 +84,9 @@ class MainConfigItem
     }
 
     /**
-     * Get itemCount
+     * Get itemCount.
      *
-     * @return integer
+     * @return int
      */
     public function getItemCount()
     {
@@ -91,7 +94,7 @@ class MainConfigItem
     }
 
     /**
-     * Set itemCount
+     * Set itemCount.
      *
      * @return MainConfigItem
      */
@@ -103,7 +106,7 @@ class MainConfigItem
     }
 
     /**
-     * Set namePattern
+     * Set namePattern.
      *
      * @param string $namePattern
      *
@@ -117,7 +120,7 @@ class MainConfigItem
     }
 
     /**
-     * Get namePattern
+     * Get namePattern.
      *
      * @return string
      */
@@ -127,7 +130,7 @@ class MainConfigItem
     }
 
     /**
-     * Set resourceType
+     * Set resourceType.
      *
      * @param \Claroline\CoreBundle\Entity\Resource\ResourceType $resourceType
      *
@@ -141,7 +144,7 @@ class MainConfigItem
     }
 
     /**
-     * Get resourceType
+     * Get resourceType.
      *
      * @return \Claroline\CoreBundle\Entity\Resource\ResourceType
      */
@@ -151,7 +154,7 @@ class MainConfigItem
     }
 
     /**
-     * Set mainResourceType
+     * Set mainResourceType.
      *
      * @param \Claroline\CoreBundle\Entity\Resource\ResourceType $mainResourceType
      *
@@ -165,7 +168,7 @@ class MainConfigItem
     }
 
     /**
-     * Get mainResourceType
+     * Get mainResourceType.
      *
      * @return \Claroline\CoreBundle\Entity\Resource\ResourceType
      */
@@ -175,7 +178,7 @@ class MainConfigItem
     }
 
     /**
-     * Set workspace
+     * Set workspace.
      *
      * @param \Claroline\CoreBundle\Entity\Workspace\Workspace $workspace
      *
@@ -189,7 +192,7 @@ class MainConfigItem
     }
 
     /**
-     * Get workspace
+     * Get workspace.
      *
      * @return \Claroline\CoreBundle\Entity\Workspace\Workspace
      */
@@ -199,7 +202,7 @@ class MainConfigItem
     }
 
     /**
-     * Set mainconfig
+     * Set mainconfig.
      *
      * @param \CPASimUSante\ItemSelectorBundle\Entity\MainConfig $mainconfig
      *
@@ -213,7 +216,7 @@ class MainConfigItem
     }
 
     /**
-     * Get mainconfig
+     * Get mainconfig.
      *
      * @return \CPASimUSante\ItemSelectorBundle\Entity\MainConfig
      */

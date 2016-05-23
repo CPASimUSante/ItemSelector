@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the Claroline Connect package
+ * This file is part of the Claroline Connect package.
  *
  * (c) Claroline Consortium <consortium@claroline.net>
  *
@@ -8,13 +8,11 @@
  * 
  * Date: 3/24/15
  */
-
 namespace CPASimUSante\ItemSelectorBundle\Exception;
-
 
 class NoMainConfigException extends \RuntimeException
 {
-    public function __construct($message = "")
+    public function __construct($message = '')
     {
         parent::__construct($message);
     }

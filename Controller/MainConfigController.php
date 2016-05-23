@@ -11,15 +11,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Class MainConfigController
+ * Class MainConfigController.
  *
  * @category   Controller
- * @package    CPASimUSante
- * @subpackage ItemSelector
+ *
  * @author     CPASimUSante <contact@simusante.com>
  * @copyright  2015 CPASimUSante
  * @license    http://www.opensource.org/licenses/mit-license.php MIT License
+ *
  * @version    0.1
+ *
  * @link       http://simusante.com
  *
  * @EXT\Route(
@@ -31,7 +32,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class MainConfigController extends Controller
 {
     /**
-     * Configuration
+     * Configuration.
      *
      * @EXT\Route("/choose", name="cpasimusante_mainconfig", options={"expose"=true})
      * @EXT\Template("CPASimUSanteItemSelectorBundle::config.html.twig")
@@ -69,7 +70,7 @@ class MainConfigController extends Controller
         }
 
         return array(
-            'form'      => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 

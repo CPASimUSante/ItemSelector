@@ -3,10 +3,9 @@
 namespace CPASimUSante\ItemSelectorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Item
+ * Item.
  *
  * @ORM\Table(name="cpasimusante__item")
  * @ORM\Entity(repositoryClass="CPASimUSante\ItemSelectorBundle\Repository\ItemRepository")
@@ -14,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Item
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -39,9 +38,9 @@ class Item
     protected $itemselector;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -49,7 +48,7 @@ class Item
     }
 
     /**
-     * Set itemcode
+     * Set itemcode.
      *
      * @param string $itemcode
      *
@@ -63,7 +62,7 @@ class Item
     }
 
     /**
-     * Get itemcode
+     * Get itemcode.
      *
      * @return string
      */
@@ -73,7 +72,7 @@ class Item
     }
 
     /**
-     * Set itemselector
+     * Set itemselector.
      *
      * @param \CPASimUSante\ItemSelectorBundle\Entity\ItemSelector $itemselector
      *
@@ -87,7 +86,7 @@ class Item
     }
 
     /**
-     * Get itemselector
+     * Get itemselector.
      *
      * @return \CPASimUSante\ItemSelectorBundle\Entity\ItemSelector
      */

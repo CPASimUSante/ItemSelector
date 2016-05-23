@@ -22,12 +22,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 class ItemSelector extends AbstractResource
 {
     /**
-     * @var string $title
+     * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
-    
+
     /**
      * @var Items[]
      *
@@ -37,6 +37,7 @@ class ItemSelector extends AbstractResource
 
     /**
      * Wiki to select = Clinical case...
+     *
      * @var \Icap\WikiBundle\Entity\Wiki
      * 
      * @ORM\ManyToOne(targetEntity="Claroline\CoreBundle\Entity\Resource\ResourceNode", cascade={"persist"})
@@ -45,7 +46,7 @@ class ItemSelector extends AbstractResource
     protected $resource;
 
     /**
-     * Class constructor
+     * Class constructor.
      */
     public function __construct()
     {
@@ -53,7 +54,7 @@ class ItemSelector extends AbstractResource
     }
 
     /**
-     * Add item
+     * Add item.
      *
      * @param \CPASimUSante\ItemSelectorBundle\Entity\Item $item
      *
@@ -61,7 +62,7 @@ class ItemSelector extends AbstractResource
      */
     public function addItem(\CPASimUSante\ItemSelectorBundle\Entity\Item $item)
     {
- /*       $this->items[] = $item;
+        /*       $this->items[] = $item;
         //$item->setItemselector($this);
         return $this;
 */
@@ -71,7 +72,7 @@ class ItemSelector extends AbstractResource
     }
 
     /**
-     * Remove item
+     * Remove item.
      *
      * @param \CPASimUSante\ItemSelectorBundle\Entity\Item $item
      */
@@ -81,7 +82,7 @@ class ItemSelector extends AbstractResource
     }
 
     /**
-     * Get items
+     * Get items.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -91,7 +92,7 @@ class ItemSelector extends AbstractResource
     }
 
     /**
-     * Set resource
+     * Set resource.
      *
      * @param \Claroline\CoreBundle\Entity\Resource\ResourceNode $resource
      *
@@ -105,7 +106,7 @@ class ItemSelector extends AbstractResource
     }
 
     /**
-     * Get resource
+     * Get resource.
      *
      * @return \Claroline\CoreBundle\Entity\Resource\ResourceNode
      */
@@ -115,7 +116,7 @@ class ItemSelector extends AbstractResource
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
      *
@@ -129,7 +130,7 @@ class ItemSelector extends AbstractResource
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */

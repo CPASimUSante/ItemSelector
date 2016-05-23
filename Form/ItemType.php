@@ -26,44 +26,44 @@ class ItemType extends AbstractType
     }
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $resourceType   = $this->resourceType;
-        $namePattern    = $this->namePattern;
-        $orderedBy      = 'name';
+        $resourceType = $this->resourceType;
+        $namePattern = $this->namePattern;
+        $orderedBy = 'name';
 
         $builder
             ->add(
                 'resourceNode', 'entity', [
-                    'label'         => 'Code',
-                    'class'         => 'ClarolineCoreBundle:Resource\ResourceNode',
-                    'choice_label'  => 'name',
-                    'empty_value'   => 'Choisissez un item',
-                    'query_builder' => function(ResourceNodeRepository $er) use ($resourceType, $namePattern, $orderedBy) {
+                    'label' => 'Code',
+                    'class' => 'ClarolineCoreBundle:Resource\ResourceNode',
+                    'choice_label' => 'name',
+                    'empty_value' => 'Choisissez un item',
+                    'query_builder' => function (ResourceNodeRepository $er) use ($resourceType, $namePattern, $orderedBy) {
                         $qb = $er->createQueryBuilder('rn')
                             ->where('rn.resourceType = :resourcetype')
                             ->setParameter('resourcetype', $resourceType);
-                        if ($namePattern != '')
-                        {
+                        if ($namePattern != '') {
                             $qb->andWhere('rn.name LIKE :namePattern')
-                                ->setParameter('namePattern', $namePattern);
+                                ->setParameter('namePattern', $namePattern.'%');
                         }
                         $qb->orderBy('rn.'.$orderedBy, 'ASC');
+
                         return $qb;
-                    }
+                    },
                 ]
             );
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CPASimUSante\ItemSelectorBundle\Entity\Item'
+            'data_class' => 'CPASimUSante\ItemSelectorBundle\Entity\Item',
         ));
     }
 

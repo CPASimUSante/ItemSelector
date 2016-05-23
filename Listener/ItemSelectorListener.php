@@ -3,7 +3,6 @@
 namespace CPASimUSante\ItemSelectorBundle\Listener;
 
 use Claroline\CoreBundle\Event\PluginOptionsEvent;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Claroline\CoreBundle\Event\CopyResourceEvent;
 use Claroline\CoreBundle\Event\CreateFormResourceEvent;
 use Claroline\CoreBundle\Event\CreateResourceEvent;
@@ -13,14 +12,12 @@ use CPASimUSante\ItemSelectorBundle\Entity\ItemSelector;
 use CPASimUSante\ItemSelectorBundle\Form\ItemSelectorType;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-
 
 class ItemSelectorListener extends ContainerAware
 {
     /**
-     * Show modal at resource creation
+     * Show modal at resource creation.
      *
      * @param CreateFormResourceEvent $event
      */
@@ -28,7 +25,7 @@ class ItemSelectorListener extends ContainerAware
     {
         // Create form (only the title here)
         $form = $this->container->get('form.factory')
-            ->create(new ItemSelectorType(), new ItemSelector(), array('inside'=>false));
+            ->create(new ItemSelectorType(), new ItemSelector(), array('inside' => false));
 
         $content = $this->container
             ->get('templating')
@@ -36,7 +33,7 @@ class ItemSelectorListener extends ContainerAware
                 'ClarolineCoreBundle:Resource:createForm.html.twig',
                 array(
                     'form' => $form->createView(),
-                    'resourceType' => 'cpasimusante_itemselector'
+                    'resourceType' => 'cpasimusante_itemselector',
                 )
             );
 
@@ -44,7 +41,7 @@ class ItemSelectorListener extends ContainerAware
         $event->stopPropagation();
     }
     /**
-     * when resource creation modal form is sent
+     * when resource creation modal form is sent.
      *
      * @param CreateFormResourceEvent $event
      */
@@ -53,7 +50,7 @@ class ItemSelectorListener extends ContainerAware
         $request = $this->container->get('request');
         $form = $this->container
             ->get('form.factory')
-            ->create(new ItemSelectorType(), new ItemSelector(), array('inside'=>false));
+            ->create(new ItemSelectorType(), new ItemSelector(), array('inside' => false));
 
         $form->handleRequest($request);
 
@@ -74,7 +71,7 @@ class ItemSelectorListener extends ContainerAware
                 'ClarolineCoreBundle:Resource:createForm.html.twig',
                 array(
                     'form' => $form->createView(),
-                    'resourceType' => 'cpasimusante_itemselector'
+                    'resourceType' => 'cpasimusante_itemselector',
                 )
             );
         $event->setErrorFormContent($content);
@@ -100,13 +97,12 @@ class ItemSelectorListener extends ContainerAware
             ->generate(
                 'cpasimusante_choose_item',
                 array(
-                    'id' => $event->getResource()->getId()
+                    'id' => $event->getResource()->getId(),
                 )
             );
         $event->setResponse(new RedirectResponse($route));
         $event->stopPropagation();
     }
-
 
     /**
      * @param PluginOptionsEvent $event

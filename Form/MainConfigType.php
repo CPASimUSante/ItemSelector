@@ -10,30 +10,30 @@ class MainConfigType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add(
                 'items', 'collection', array(
-                    'type'          => new MainConfigItemType(),
-                    'by_reference'  => false,
-                    'prototype'     => true,
-                    'allow_add'     => true,
-                    'allow_delete'  => true,
+                    'type' => new MainConfigItemType(),
+                    'by_reference' => false,
+                    'prototype' => true,
+                    'allow_add' => true,
+                    'allow_delete' => true,
                 )
             )
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CPASimUSante\ItemSelectorBundle\Entity\MainConfig'
+            'data_class' => 'CPASimUSante\ItemSelectorBundle\Entity\MainConfig',
         ));
     }
 

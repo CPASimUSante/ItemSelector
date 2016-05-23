@@ -5,23 +5,22 @@ namespace CPASimUSante\ItemSelectorBundle\Controller;
 use CPASimUSante\ItemSelectorBundle\Entity\Item;
 use CPASimUSante\ItemSelectorBundle\Entity\ItemSelector;
 use CPASimUSante\ItemSelectorBundle\Form\ItemSelectorType;
-use CPASimUSante\ItemSelectorBundle\Form\ItemType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration as EXT;
-use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Class ItemSelectorController
+ * Class ItemSelectorController.
  *
  * @category   Controller
- * @package    CPASimUSante
- * @subpackage ItemSelector
+ *
  * @author     CPASimUSante <contact@simusante.com>
  * @copyright  2015 CPASimUSante
  * @license    http://www.opensource.org/licenses/mit-license.php MIT License
+ *
  * @version    0.1
+ *
  * @link       http://simusante.com
  *
  * @EXT\Route(
@@ -33,13 +32,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 class ItemSelectorController extends Controller
 {
     /**
-     * Show main page
+     * Show main page.
      *
      * @EXT\Route("/choose/{id}", name="cpasimusante_choose_item", requirements={"id" = "\d+"}, options={"expose"=true})
      * @EXT\ParamConverter("itemselector", class="CPASimUSanteItemSelectorBundle:ItemSelector", options={"id" = "id"})
      * @EXT\Template("CPASimUSanteItemSelectorBundle:ItemSelector:choose.html.twig")
-     * @param Request $request
+     *
+     * @param Request      $request
      * @param ItemSelector $itemSelector
+     *
      * @return array
      */
     public function chooseAction(Request $request, ItemSelector $itemSelector)
@@ -81,45 +82,45 @@ class ItemSelectorController extends Controller
 
         return array(
             '_resource' => $itemSelector,
-            'form'      => $form->createView(),
+            'form' => $form->createView(),
             'itemCount' => $config['itemCount'],
         );
     }
 
     /**
-     * retrieve configuration for this WS
+     * retrieve configuration for this WS.
      *
      * @param $workspace
+     *
      * @return array
      */
-    private function getConfig($workspace){
+    private function getConfig($workspace)
+    {
         $em = $this->getDoctrine()->getManager();
         $res = $em->getRepository('CPASimUSanteItemSelectorBundle:MainConfigItem')
             ->findOneByWorkspace($workspace);
         //Default configuration
-        if (null == $res)
-        {
+        if (null == $res) {
             $defaultResourceType = $em->getRepository('ClarolineCoreBundle:Resource\ResourceType')
                 ->findOneByName('file');
             $config = array(
-                'itemCount'         => 3,
-                'namePattern'       => '',
-                'resourceType'      => $defaultResourceType->getId(),
-                'mainResourceType'  => 'file',
+                'itemCount' => 3,
+                'namePattern' => '',
+                'resourceType' => $defaultResourceType->getId(),
+                'mainResourceType' => 'file',
             );
-        }
-        else
-        {
+        } else {
             $id = $res->getMainResourceType()->getId();
             $mainResourceType = $em->getRepository('ClarolineCoreBundle:Resource\ResourceType')
                 ->findOneById($id);
             $config = array(
-                'itemCount'         => $res->getItemCount(),
-                'namePattern'       => $res->getNamePattern(),
-                'resourceType'      => $res->getResourceType()->getId(),
-                'mainResourceType'  => $mainResourceType->getName(),
+                'itemCount' => $res->getItemCount(),
+                'namePattern' => $res->getNamePattern(),
+                'resourceType' => $res->getResourceType()->getId(),
+                'mainResourceType' => $mainResourceType->getName(),
             );
         }
+
         return $config;
     }
 }
