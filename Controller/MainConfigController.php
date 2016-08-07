@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration as EXT;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\DiExtraBundle\Annotation as DI;
-use CPASimUSante\ItemSelectorBundle\Manager\PluginManager;
+use CPASimUSante\ItemSelectorBundle\Manager\ItemSelectorManager;
 
 /**
  * Class MainConfigController.
