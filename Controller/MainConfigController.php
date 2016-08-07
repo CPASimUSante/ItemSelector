@@ -36,7 +36,7 @@ class MainConfigController extends Controller
 
     /**
      * @DI\InjectParams({
-     *      "manager" = @DI\Inject("cpasimusante_itemselector.manager"),
+     *      "manager" = @DI\Inject("cpasimusante_itemselector.manager.plugin.itemselector"),
      * })
      */
     public function __construct(ItemSelectorManager $manager)

@@ -1,4 +1,9 @@
-cpasimusante_itemselector: ItemSelector
+answer_questions: 'Answer the questions'
+cpasimusante_itemselector: 'Item selector'
 cpasimusante_itemselector_name: 'Name'
+dfasm_items: 'To which DFASM items does it correspond ?'
+cpasimusante_itemselector_exerciseid: 'Exercise %id%'
+fullpage: 'Full screen'
 title: 'Name'
-resource_to_open: 'Resource to choose'
+resource_to_open: 'Clinical case'
+watch_exercices: 'Watch exercises'

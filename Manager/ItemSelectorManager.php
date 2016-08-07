@@ -8,7 +8,7 @@ use CPASimUSante\ItemSelectorBundle\Entity\MainConfig;
 use Doctrine\ORM\EntityManager;
 
 /**
- * @DI\Service("cpasimusante_itemselector.manager")
+ * @DI\Service("cpasimusante_itemselector.manager.plugin.itemselector")
  */
 class ItemSelectorManager
 {
@@ -16,10 +16,10 @@ class ItemSelectorManager
 
     /**
      * @DI\InjectParams({
-     *     "om" = @DI\Inject("doctrine.orm.entity_manager")
+     *     "em" = @DI\Inject("doctrine.orm.entity_manager")
      * })
      *
-     * @param ObjectManager $om
+     * @param ObjectManager $em
      */
     public function __construct(EntityManager $em)
     {

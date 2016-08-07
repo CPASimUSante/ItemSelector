@@ -10,4 +10,4 @@ parameters:
     cpasimusante_itemselector.listener.itemselector.class: CPASimUSante\ItemSelectorBundle\Listener\ItemSelectorListener
 
     #Managers
-    cpasimusante_itemselector.manager.plugin.itemselector.class: CPASimUSante\ItemSelectorBundle\Manager\PluginManager
+    cpasimusante_itemselector.manager.plugin.itemselector.class: CPASimUSante\ItemSelectorBundle\Manager\ItemSelectorManager
