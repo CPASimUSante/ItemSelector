@@ -59,7 +59,6 @@ class ItemSelectorController extends Controller
         $mainResourceType = $config['mainResourceType'];
         $resourceType = $config['resourceType'];
         $namePattern = $config['namePattern'];
-
         $form = $this->get('form.factory')
             ->create(new ItemSelectorType($mainResourceType, $resourceType, $namePattern), $itemSelector);
         $form->handleRequest($request);
@@ -80,11 +79,11 @@ class ItemSelectorController extends Controller
             $em->flush();
         }
 
-        return array(
+        return [
             '_resource' => $itemSelector,
             'form' => $form->createView(),
             'itemCount' => $config['itemCount'],
-        );
+        ];
     }
 
     /**
@@ -103,22 +102,22 @@ class ItemSelectorController extends Controller
         if (null == $res) {
             $defaultResourceType = $em->getRepository('ClarolineCoreBundle:Resource\ResourceType')
                 ->findOneByName('file');
-            $config = array(
+            $config = [
                 'itemCount' => 3,
                 'namePattern' => '',
                 'resourceType' => $defaultResourceType->getId(),
                 'mainResourceType' => 'file',
-            );
+            ];
         } else {
             $id = $res->getMainResourceType()->getId();
             $mainResourceType = $em->getRepository('ClarolineCoreBundle:Resource\ResourceType')
                 ->findOneById($id);
-            $config = array(
+            $config = [
                 'itemCount' => $res->getItemCount(),
                 'namePattern' => $res->getNamePattern(),
                 'resourceType' => $res->getResourceType()->getId(),
                 'mainResourceType' => $mainResourceType->getName(),
-            );
+            ];
         }
 
         return $config;

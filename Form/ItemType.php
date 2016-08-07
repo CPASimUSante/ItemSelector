@@ -62,9 +62,9 @@ class ItemType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'CPASimUSante\ItemSelectorBundle\Entity\Item',
-        ));
+        ]);
     }
 
     /**

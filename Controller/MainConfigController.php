@@ -3,12 +3,13 @@
 namespace CPASimUSante\ItemSelectorBundle\Controller;
 
 use CPASimUSante\ItemSelectorBundle\Entity\MainConfig;
-use CPASimUSante\ItemSelectorBundle\Exception\NoMainConfigException;
 use CPASimUSante\ItemSelectorBundle\Form\MainConfigType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration as EXT;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\DiExtraBundle\Annotation as DI;
+use CPASimUSante\ItemSelectorBundle\Manager\PluginManager;
 
 /**
  * Class MainConfigController.
@@ -31,6 +32,18 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class MainConfigController extends Controller
 {
+    protected $manager;
+
+    /**
+     * @DI\InjectParams({
+     *      "manager" = @DI\Inject("cpasimusante_itemselector.manager"),
+     * })
+     */
+    public function __construct(ItemSelectorManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     /**
      * Configuration.
      *
@@ -41,7 +54,7 @@ class MainConfigController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $mainConfig = $this->getMainConfig();
+        $mainConfig = $this->manager->getMainConfig();
 
         // Create an ArrayCollection of the current Item objects in the database
         $originalItems = new ArrayCollection();
@@ -69,25 +82,8 @@ class MainConfigController extends Controller
             $em->flush();
         }
 
-        return array(
+        return [
             'form' => $form->createView(),
-        );
-    }
-
-    public function getMainConfig()
-    {
-        try {
-            $mainConfig = $this->getDoctrine()
-                ->getManager()
-                ->getRepository('CPASimUSanteItemSelectorBundle:MainConfig')
-                ->findAll();
-            if (sizeof($mainConfig) == 0) {
-                throw new NoMainConfigException();
-            } else {
-                return $mainConfig[0];
-            }
-        } catch (NoMainConfigException $nme) {
-            return new MainConfig();
-        }
+        ];
     }
 }

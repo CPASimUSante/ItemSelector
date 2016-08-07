@@ -25,16 +25,16 @@ class ItemSelectorListener extends ContainerAware
     {
         // Create form (only the title here)
         $form = $this->container->get('form.factory')
-            ->create(new ItemSelectorType(), new ItemSelector(), array('inside' => false));
+            ->create(new ItemSelectorType(), new ItemSelector(), ['inside' => false]);
 
         $content = $this->container
             ->get('templating')
             ->render(
                 'ClarolineCoreBundle:Resource:createForm.html.twig',
-                array(
+                [
                     'form' => $form->createView(),
                     'resourceType' => 'cpasimusante_itemselector',
-                )
+                ]
             );
 
         $event->setResponseContent($content);
@@ -50,7 +50,7 @@ class ItemSelectorListener extends ContainerAware
         $request = $this->container->get('request');
         $form = $this->container
             ->get('form.factory')
-            ->create(new ItemSelectorType(), new ItemSelector(), array('inside' => false));
+            ->create(new ItemSelectorType(), new ItemSelector(), ['inside' => false]);
 
         $form->handleRequest($request);
 
@@ -59,7 +59,7 @@ class ItemSelectorListener extends ContainerAware
             //update name
             $itemselector->setName($itemselector->getTitle());
 
-            $event->setResources(array($itemselector));
+            $event->setResources([$itemselector]);
             $event->stopPropagation();
 
             return;
@@ -69,10 +69,10 @@ class ItemSelectorListener extends ContainerAware
             ->get('templating')
             ->render(
                 'ClarolineCoreBundle:Resource:createForm.html.twig',
-                array(
+                [
                     'form' => $form->createView(),
                     'resourceType' => 'cpasimusante_itemselector',
-                )
+                ]
             );
         $event->setErrorFormContent($content);
         $event->stopPropagation();
@@ -96,9 +96,9 @@ class ItemSelectorListener extends ContainerAware
             ->get('router')
             ->generate(
                 'cpasimusante_choose_item',
-                array(
+                [
                     'id' => $event->getResource()->getId(),
-                )
+                ]
             );
         $event->setResponse(new RedirectResponse($route));
         $event->stopPropagation();
@@ -112,8 +112,8 @@ class ItemSelectorListener extends ContainerAware
         $requestStack = $this->container->get('request_stack');
         $httpKernel = $this->container->get('http_kernel');
         $request = $requestStack->getCurrentRequest();
-        $params = array('_controller' => 'CPASimUSanteItemSelectorBundle:MainConfig:AdminOpen');
-        $subRequest = $request->duplicate(array(), null, $params);
+        $params = ['_controller' => 'CPASimUSanteItemSelectorBundle:MainConfig:AdminOpen'];
+        $subRequest = $request->duplicate([], null, $params);
         $response = $httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
         $event->setResponse($response);
         $event->stopPropagation();

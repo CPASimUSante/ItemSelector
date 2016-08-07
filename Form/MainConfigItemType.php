@@ -15,31 +15,31 @@ class MainConfigItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('mainResourceType', 'entity', array(
+            ->add('mainResourceType', 'entity', [
                 'label' => 'Ressource principale',
                 'empty_value' => 'Choisissez une ressource',
                 'class' => 'Claroline\CoreBundle\Entity\Resource\ResourceType',
                 'choice_label' => 'name',
-            ))
-            ->add('resourceType', 'entity', array(
+            ])
+            ->add('resourceType', 'entity', [
                 'label' => 'Type d\'item',
                 'class' => 'Claroline\CoreBundle\Entity\Resource\ResourceType',
                 'choice_label' => 'name',
-            ))
-            ->add('workspace', 'entity', array(
+            ])
+            ->add('workspace', 'entity', [
                 'label' => 'Workspace',
                 'class' => 'Claroline\CoreBundle\Entity\Workspace\Workspace',
                 'choice_label' => 'name',
-            ))
-            ->add('namePattern', 'text', array(
+            ])
+            ->add('namePattern', 'text', [
                 'empty_data' => null,
                 'required' => false,
                 'label' => 'Pattern',
-            ))
-            ->add('itemCount', 'integer', array(
+            ])
+            ->add('itemCount', 'integer', [
                 'empty_data' => 3,
                 'label' => 'Nombre maximum d\'items',
-            ))
+            ])
         ;
     }
 
@@ -48,9 +48,9 @@ class MainConfigItemType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'CPASimUSante\ItemSelectorBundle\Entity\MainConfigItem',
-        ));
+        ]);
     }
 
     /**

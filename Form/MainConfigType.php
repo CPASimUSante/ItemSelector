@@ -16,13 +16,13 @@ class MainConfigType extends AbstractType
     {
         $builder
             ->add(
-                'items', 'collection', array(
+                'items', 'collection', [
                     'type' => new MainConfigItemType(),
                     'by_reference' => false,
                     'prototype' => true,
                     'allow_add' => true,
                     'allow_delete' => true,
-                )
+                ]
             )
         ;
     }
@@ -32,9 +32,9 @@ class MainConfigType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'CPASimUSante\ItemSelectorBundle\Entity\MainConfig',
-        ));
+        ]);
     }
 
     /**

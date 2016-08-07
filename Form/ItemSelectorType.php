@@ -38,38 +38,38 @@ class ItemSelectorType extends AbstractType
     {
         $builder
             ->add(
-                'name', 'hidden', array(
+                'name', 'hidden', [
                     'data' => 'itemselector',
-                )
+                ]
             )
             ->add(
-                'title', 'text', array(
+                'title', 'text', [
                     'label' => 'title',
-                )
+                ]
             );
         //To avoid displaying them in ItemSelector Resource creation modal
         if ($options['inside']) {
             $builder
                 ->add(
-                    'resource', 'resourcePicker', array(
+                    'resource', 'resourcePicker', [
                         'required' => true,
-                        'attr' => array(
+                        'attr' => [
                             'data-is-picker-multi-select-allowed' => 0,
                             'data-is-directory-selection-allowed' => 0,
                             'data-type-white-list' => $this->mainResourceType,
                             /*'data-restrict-for-owner'               => 0,*/
-                        ),
+                        ],
                         'label' => 'resource_to_open',
-                    )
+                    ]
                 )
                 ->add(
-                    'items', 'collection', array(
+                    'items', 'collection', [
                         'type' => new ItemType($this->resourceType, $this->namePattern),
                         'by_reference' => false,
                         'prototype' => true,
                         'allow_add' => true,
                         'allow_delete' => true,
-                    )
+                    ]
                 )
             ;
         }
@@ -77,11 +77,11 @@ class ItemSelectorType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'CPASimUSante\ItemSelectorBundle\Entity\ItemSelector',
             'translation_domain' => 'resource',
             'inside' => true,
-        ));
+        ]);
     }
 
     /**
