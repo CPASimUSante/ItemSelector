@@ -1,0 +1,26 @@
+<form action="{{ path('cpasimusante_choose_item', {'id': _resource.id}) }}" method="post" id="form">
+    <div class="panel-body" id="text_content">
+        {{ form_row(form.resource) }}
+        <label class="control-label col-md-4">{{ 'dfasm_items'|trans:{}:'resource' }}</label>
+
+        <ul class="isel-item">
+            <li class="item" data-ng-repeat="item in itemSelectorController.form.items">
+                <item-list data-item="item"></item-list>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="panel-footer">
+        <button type="button" class="btn btn-default" >{{ 'cancel'|trans:{}:'platform' }}</button>
+        <button type="submit" class="btn btn-primary">{{ 'save'|trans:{}:'platform' }}</button>
+
+        <button class="btn btn-default show-exercices"
+          data-ng-if="form.items.count>0"
+          type="button"
+          data-toggle="tooltip"
+          title="{{ 'watch_exercices'|trans:{}:'resource'}}">
+            <span class="fa fa-eye"></span> {{ 'answer_questions'|trans:{}:'resource' }}
+        </button>
+    </div>
+</form>

@@ -35,60 +35,14 @@
 {% endmacro %}
 
 {% block section_content %}
-<form action="{{ path('cpasimusante_choose_item', {'id': _resource.id}) }}" method="post" {{ form_enctype(form) }} id="form">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{ _resource.getResourceNode().getName() }}</h3>
-        </div>
-
-        <div class="panel-body" id="text_content">
-            {{ form_row(form.resource) }}
-            <label class="control-label col-md-4">{{ 'dfasm_items'|trans({}, 'resource') }}</label>
-
-            <ul class="isel-item" data-prototype="{{ _self.isel_prototype(form.items.vars.prototype)|e }}">
-                {% for item in form.items %}
-                    <li class="item">{{ _self.isel_prototype(item) }}</li>
-                {% endfor %}
-            </ul>
-
-        </div>
-
-        <div class="panel-footer">
-            {% if is_granted('ADMINISTRATE', _resource) %}{% endif %}
-            <button type="button" class="btn btn-default" >{{ 'cancel'|trans({}, 'platform') }}</button>
-            <button type="submit" class="btn btn-primary">{{ 'save'|trans({}, 'platform') }}</button>
-
-            {% if form.items.count > 0 %}
-                <button class="btn btn-default show-exercices" type="button" data-toggle="tooltip" title="{{ 'watch_exercices'|trans({}, 'resource')}}">
-                    <span class="fa fa-eye"></span> {{ 'answer_questions'|trans({}, 'resource') }}
-                </button>
-            {% endif %}
-        </div>
+<div class="panel panel-default" data-ng-app="ItemSelectorModule">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ _resource.getResourceNode().getName() }}</h3>
     </div>
-</form>
-
-<div id="activities-evaluations">
-
-    <!-- Display Exercices -->
-    <div id="dfasm" style="display: none;">
-        <div class="panel panel-default">
-            <div class="fullframe" style="position: relative">
-                <div class="popout btn btn-warning"><a>{{ 'fullpage'|trans({}, 'resource') }}</a></div>
-                <div class="popin btn btn-warning"><a>{{ 'close'|trans({}, 'platform') }}</a></div>
-
-                {% set tabs = "" %}
-                {% set tabcontent = "" %}
-                {% for item in form.items %}
-                    {% set tabs = tabs ~ _self.tabs(loop.index) %}
-                    {% set tabcontent = tabcontent ~ _self.tabcontent(loop.index, item.resourceNode.vars.value) %}
-                {% endfor %}
-                <ul class="nav nav-tabs">{{ tabs | raw  }}</ul>
-                {{ tabcontent | raw  }}
-            </div>
-        </div>
-    </div>
-
+    <item-selector-form></item-selector-form>
 </div>
+<item-display></item-display>
+
 {% endblock %}
 
 {% block stylesheets %}
@@ -99,5 +53,11 @@
 {% block javascripts %}
     {# Claroline JS #}
     {{ parent() }}
-    <script type="text/javascript" src='{{ asset('bundles/cpasimusanteitemselector/js/itemselector.js') }}'></script>
+    <script src="{{ url('bazinga_jstranslation_js', { 'domain': 'resource' }) }}"></script>
+    <script>
+        AngularApp = {}
+        AngularApp.webDir = "{{asset('')}}"
+
+    </script>
+    <script src='{{ hotAsset('dist/cpasimusante-item-selector-item-selector.js') }}'></script>
 {% endblock %}

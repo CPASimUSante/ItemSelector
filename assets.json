@@ -1,0 +1,8 @@
+{
+  "webpack": {
+    "entry": {
+      "item": "Item/item.module",
+      "item-selector": "ItemSelector/item-selector.module"
+    }
+  }
+}
