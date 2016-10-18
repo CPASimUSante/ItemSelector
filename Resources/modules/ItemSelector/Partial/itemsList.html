@@ -1,0 +1,13 @@
+<div data-ng-class="form-group">
+    <div class="col-md-3">{{ 'dfasm.item'|trans:{}:'resource' }}</div>
+    <div class="col-md-8">
+        <select
+            class="form-control"
+            data-ng-options="item as item.name for item in isc.itemList track by item.id"
+            data-ng-model="itemSelected">
+            <option value="">{{'select_choice'|trans:{}:'resource'}}</option>
+        </select>
+    </div>
+    <div class="col-md-1"><button type="button" class="btn btn-danger" data-ng-click=""><span class="fa fa-trash"></span></button></div>
+</div>
+<br>itemSelected = {{itemSelected|debug}}

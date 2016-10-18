@@ -1,9 +1,9 @@
 <form novalidate method="post" id="form">
     <div class="panel-body" id="text_content">
         <div data-ng-class="form-group">
-            <label for="mainresource">{{ 'dfasm_items'|trans:{}:'resource' }}</label>
-            <div class="input-group col-md-12">
-                <input type="text" class="form-control text-center" name="mainresource" id="mainresource" data-ng-model="isc.mainresource" />
+            <div class="col-md-3"><label for="mainresource">{{ 'resource_to_open'|trans:{}:'resource' }}</label></div>
+            <div class="input-group col-md-9">
+                <input type="text" class="form-control text-center" name="mainresource" id="mainresource" data-ng-model="isc.itemSelector.main.name" />
                 <div class="input-group-btn">
                     <btn-resource-picker class="btn btn-default" data-parameters="isc.resourcePicker" data-container="body">
                         <span class="fa fa-folder-open"></span>
@@ -13,12 +13,19 @@
             </div>
         </div>
 
-        <ul class="isel-item">
-            <li class="item"
-                data-ng-repeat="item in isc.items"
-                item-list>
-            </li>
-        </ul>
+isc.itemSelector.items= {{isc.itemSelector.items|debug}}<br><br>
+
+        <div data-ng-class="form-group">
+            <div class="col-md-12"><label for="mainresource">{{ 'dfasm_items'|trans:{}:'resource' }}</label></div>
+            <div class="col-md-12">
+                <ul class="isel-item">
+                    <li class="item"
+                        data-ng-repeat="itemSelected in isc.itemSelector.items"
+                        items-list>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <div class="panel-footer">

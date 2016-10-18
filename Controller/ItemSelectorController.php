@@ -5,10 +5,11 @@ namespace CPASimUSante\ItemSelectorBundle\Controller;
 use CPASimUSante\ItemSelectorBundle\Entity\Item;
 use CPASimUSante\ItemSelectorBundle\Entity\ItemSelector;
 use CPASimUSante\ItemSelectorBundle\Form\ItemSelectorType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use CPASimUSante\ItemSelectorBundle\Manager\ItemSelectorManager;
+use Doctrine\Common\Collections\ArrayCollection;
+use JMS\DiExtraBundle\Annotation as DI;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration as EXT;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class ItemSelectorController.
@@ -31,6 +32,21 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class ItemSelectorController extends Controller
 {
+    private $itemSelectorManager;
+
+    /**
+     * @DI\InjectParams({
+     *     "itemSelectorManager" = @DI\Inject("cpasimusante_itemselector.manager.itemselector")
+     * })
+     *
+     * @param ItemSelectorManager   itemSelectorManager
+     */
+    public function __construct(
+        ItemSelectorManager $itemSelectorManager
+    ) {
+        $this->itemSelectorManager = $itemSelectorManager;
+    }
+
     /**
      * Show main page.
      *
@@ -45,6 +61,16 @@ class ItemSelectorController extends Controller
      */
     public function chooseAction(Request $request, ItemSelector $itemSelector)
     {
+        //can user access ?
+        $this->checkAccess('OPEN', $itemSelector);
+
+        //retrieve ItemSelector configuration for this WS
+        $config = $this->getConfig($itemSelector->getResourceNode()->getWorkspace()->getId());
+
+        $mainResourceType = $config['mainResourceType'];
+        $resourceType = $config['resourceType'];
+        $namePattern = $config['namePattern'];
+/*
         $em = $this->getDoctrine()->getManager();
 
         // Create an ArrayCollection of the current Item objects in the database
@@ -53,13 +79,6 @@ class ItemSelectorController extends Controller
             $originalItems->add($item);
         }
 
-        //retrieve ItemSelector configuration for this WS
-        $config = $this->getConfig($itemSelector->getResourceNode()->getWorkspace()->getId());
-
-        $mainResourceType = $config['mainResourceType'];
-        $resourceType = $config['resourceType'];
-        $namePattern = $config['namePattern'];
-        
         $form = $this->get('form.factory')
             ->create(new ItemSelectorType($mainResourceType, $resourceType, $namePattern), $itemSelector);
         $form->handleRequest($request);
@@ -79,12 +98,19 @@ class ItemSelectorController extends Controller
             $em->persist($itemSelector);
             $em->flush();
         }
+*/
+
+        $items = $this->itemSelectorManager->getItems($itemSelector);
+        //retrieve the list of items to be displayed in the item select
+        $itemlist = $this->itemSelectorManager->getAuthorizedItemList($resourceType, $namePattern, 'name');
 
         return [
             'mainResourceType' => $mainResourceType,
             '_resource' => $itemSelector,
-            'form' => $form->createView(),
+            'itemSelector' => $items,
+            'itemList' => $itemlist,
             'itemCount' => $config['itemCount'],
+  //'form' => $form->createView(),
         ];
     }
 

@@ -59,6 +59,9 @@
         AngularApp = {}
         AngularApp.webDir = "{{asset('')}}"
         window.mainResourceType = "{{ mainResourceType }}"
+        window.itemSelector = {{ itemSelector|json_encode|raw }}
+        window.itemList = {{ itemList|json_encode|raw }}
+        window.itemCount = {{ itemCount }}
     </script>
     <script src='{{ hotAsset('dist/cpasimusante-item-selector-item-selector.js') }}'></script>
 {% endblock %}
