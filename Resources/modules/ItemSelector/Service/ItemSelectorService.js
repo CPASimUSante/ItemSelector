@@ -8,4 +8,13 @@ export default class ItemSelectorService {
     this.$uibModal = $uibModal
   }
 
+  getMainResource() {
+    let resource = {}
+    return resource
+  }
+
+  getItems() {
+    let items = {}
+    return items
+  }
 }

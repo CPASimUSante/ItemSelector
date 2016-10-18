@@ -1,14 +1,24 @@
-<form action="{{ path('cpasimusante_choose_item', {'id': _resource.id}) }}" method="post" id="form">
+<form novalidate method="post" id="form">
     <div class="panel-body" id="text_content">
-        {{ form_row(form.resource) }}
-        <label class="control-label col-md-4">{{ 'dfasm_items'|trans:{}:'resource' }}</label>
+        <div data-ng-class="form-group">
+            <label for="mainresource">{{ 'dfasm_items'|trans:{}:'resource' }}</label>
+            <div class="input-group col-md-12">
+                <input type="text" class="form-control text-center" name="mainresource" id="mainresource" data-ng-model="isc.mainresource" />
+                <div class="input-group-btn">
+                    <btn-resource-picker class="btn btn-default" data-parameters="isc.resourcePicker" data-container="body">
+                        <span class="fa fa-folder-open"></span>
+                        <span class="sr-only">{{ 'select_main_resource'|trans:{}:'resource' }}</span>
+                    </btn-resource-picker>
+                </div>
+            </div>
+        </div>
 
         <ul class="isel-item">
-            <li class="item" data-ng-repeat="item in itemSelectorController.form.items">
-                <item-list data-item="item"></item-list>
+            <li class="item"
+                data-ng-repeat="item in isc.items"
+                item-list>
             </li>
         </ul>
-
     </div>
 
     <div class="panel-footer">

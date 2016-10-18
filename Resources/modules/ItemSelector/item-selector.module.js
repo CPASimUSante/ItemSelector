@@ -2,26 +2,24 @@ import angular from 'angular/index'
 
 import 'angular-bootstrap'
 import 'angular-ui-translation/angular-translation'
+import 'angular-ui-resource-picker/angular-resource-picker'
 
-// import '../../../../../../claroline/main/core/Resources/modules/services/module'
-// //form components
-// import '../../../../../../claroline/main/core/Resources/modules/form/module'
-
+import ItemSelectorController from './Controller/ItemSelectorController'
 import ItemSelectorService from './Service/ItemSelectorService'
 import ItemSelectorFormDirective from './Directive/ItemSelectorFormDirective'
-import ItemSelectorController from './Controller/ItemSelectorController'
 
 angular
 .module('ItemSelectorModule', [
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ui.resourcePicker',
 ])
 .service('ItemSelectorService', ItemSelectorService)
-.directive('itemSelectorForm', [
-    () => new ItemSelectorFormDirective('PeriodController')
-])
 .controller('ItemSelectorController', [
     'ItemSelectorService',
     ItemSelectorController
+])
+.directive('itemSelectorForm', [
+    () => new ItemSelectorFormDirective()
 ])
 //translations
 .filter('trans', () => (string, domain = 'platform') =>

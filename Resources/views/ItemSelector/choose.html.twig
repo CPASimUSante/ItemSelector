@@ -41,6 +41,7 @@
     </div>
     <item-selector-form></item-selector-form>
 </div>
+
 <item-display></item-display>
 
 {% endblock %}
@@ -57,7 +58,7 @@
     <script>
         AngularApp = {}
         AngularApp.webDir = "{{asset('')}}"
-
+        window.mainResourceType = "{{ mainResourceType }}"
     </script>
     <script src='{{ hotAsset('dist/cpasimusante-item-selector-item-selector.js') }}'></script>
 {% endblock %}

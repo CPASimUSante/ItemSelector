@@ -59,6 +59,7 @@ class ItemSelectorController extends Controller
         $mainResourceType = $config['mainResourceType'];
         $resourceType = $config['resourceType'];
         $namePattern = $config['namePattern'];
+        
         $form = $this->get('form.factory')
             ->create(new ItemSelectorType($mainResourceType, $resourceType, $namePattern), $itemSelector);
         $form->handleRequest($request);
@@ -67,7 +68,7 @@ class ItemSelectorController extends Controller
             // remove the relationship between the item and the ItemSelector
             foreach ($originalItems as $item) {
                 if (false === $itemSelector->getItems()->contains($item)) {
-                    // in a a many-to-one relationship, remove the relationship
+                    // in a many-to-one relationship, remove the relationship
                     $item->setItemSelector(null);
                     $em->persist($item);
                     // to delete the Item entirely, you can also do that
@@ -80,6 +81,7 @@ class ItemSelectorController extends Controller
         }
 
         return [
+            'mainResourceType' => $mainResourceType,
             '_resource' => $itemSelector,
             'form' => $form->createView(),
             'itemCount' => $config['itemCount'],
