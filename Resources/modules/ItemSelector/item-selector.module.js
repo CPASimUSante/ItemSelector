@@ -8,6 +8,7 @@ import ItemSelectorController from './Controller/ItemSelectorController'
 import ItemSelectorService from './Service/ItemSelectorService'
 import ItemSelectorFormDirective from './Directive/ItemSelectorFormDirective'
 import ItemsListDirective from './Directive/ItemsListDirective'
+import ItemDisplayDirective from './Directive/ItemDisplayDirective'
 
 angular
 .module('ItemSelectorModule', [
@@ -16,6 +17,7 @@ angular
 ])
 .service('ItemSelectorService', ItemSelectorService)
 .controller('ItemSelectorController', [
+    '$scope',
     'ItemSelectorService',
     ItemSelectorController
 ])
@@ -24,6 +26,9 @@ angular
 ])
 .directive('itemsList', [
     () => new ItemsListDirective()
+])
+.directive('itemDisplay', [
+    () => new ItemDisplayDirective()
 ])
 //translations
 .filter('trans', () => (string, domain = 'platform') =>

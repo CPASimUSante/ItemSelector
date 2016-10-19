@@ -3,7 +3,11 @@
         <div data-ng-class="form-group">
             <div class="col-md-3"><label for="mainresource">{{ 'resource_to_open'|trans:{}:'resource' }}</label></div>
             <div class="input-group col-md-9">
-                <input type="text" class="form-control text-center" name="mainresource" id="mainresource" data-ng-model="isc.itemSelector.main.name" />
+                <input type="text"
+                    class="form-control text-center"
+                    name="mainresource"
+                    id="mainresource"
+                    data-ng-model="isc.itemSelector.main.name" />
                 <div class="input-group-btn">
                     <btn-resource-picker class="btn btn-default" data-parameters="isc.resourcePicker" data-container="body">
                         <span class="fa fa-folder-open"></span>
@@ -26,6 +30,9 @@ isc.itemSelector.items= {{isc.itemSelector.items|debug}}<br><br>
                 </ul>
             </div>
         </div>
+        <button type="button"
+            class="btn btn-default"
+            data-ng-click="isc.addItem()">{{ 'add'|trans:{}:'platform' }}</button>
     </div>
 
     <div class="panel-footer">
@@ -33,10 +40,11 @@ isc.itemSelector.items= {{isc.itemSelector.items|debug}}<br><br>
         <button type="submit" class="btn btn-primary">{{ 'save'|trans:{}:'platform' }}</button>
 
         <button class="btn btn-default show-exercices"
-          data-ng-if="form.items.count>0"
-          type="button"
-          data-toggle="tooltip"
-          title="{{ 'watch_exercices'|trans:{}:'resource'}}">
+            data-ng-if="isc.itemSelector.items.length>0"
+            data-ng-click=""
+            type="button"
+            data-toggle="tooltip"
+            title="{{ 'watch_exercices'|trans:{}:'resource'}}">
             <span class="fa fa-eye"></span> {{ 'answer_questions'|trans:{}:'resource' }}
         </button>
     </div>

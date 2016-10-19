@@ -1,9 +1,10 @@
 import ItemSelectorController from './../Controller/ItemSelectorController'
-import template from './../Partial/itemsList.html'
+import template from './../Partial/itemDisplay.html'
 
-export default class ItemsListDirective {
+export default class ItemDisplayDirective {
   constructor() {
-    this.restrict = 'A'
+    this.restrict = 'E'
+    this.replace = true
     this.template = template
     this.controller = ItemSelectorController
     // this.controllerAs = 'isc'
