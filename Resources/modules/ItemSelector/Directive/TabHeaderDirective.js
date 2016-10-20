@@ -1,7 +1,7 @@
 import ItemSelectorController from './../Controller/ItemSelectorController'
-import template from './../Partial/tabContent.html'
+import template from './../Partial/tabHeader.html'
 
-export default class tabDirective {
+export default class tabHeaderDirective {
   constructor() {
     this.restrict = 'A'
     this.template = template

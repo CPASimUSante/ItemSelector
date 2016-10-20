@@ -17,8 +17,6 @@
             </div>
         </div>
 
-isc.itemSelector.items= {{isc.itemSelector.items|debug}}<br><br>
-
         <div data-ng-class="form-group">
             <div class="col-md-12"><label for="mainresource">{{ 'dfasm_items'|trans:{}:'resource' }}</label></div>
             <div class="col-md-12">
@@ -36,13 +34,11 @@ isc.itemSelector.items= {{isc.itemSelector.items|debug}}<br><br>
     </div>
 
     <div class="panel-footer">
-        <button type="button" class="btn btn-default" >{{ 'cancel'|trans:{}:'platform' }}</button>
-        <button type="submit" class="btn btn-primary">{{ 'save'|trans:{}:'platform' }}</button>
-
-        <button class="btn btn-default show-exercices"
+        <button type="submit" class="btn btn-primary" data-ng-click="isc.saveItems()">{{ 'save'|trans:{}:'platform' }}</button>
+isc.itemSelector.items= {{isc.itemSelector.items|debug}}<br><br>
+        <button type="button" class="btn btn-default show-exercices"
             data-ng-if="isc.itemSelector.items.length>0"
-            data-ng-click=""
-            type="button"
+            data-ng-click="isc.showItems()"
             data-toggle="tooltip"
             title="{{ 'watch_exercices'|trans:{}:'resource'}}">
             <span class="fa fa-eye"></span> {{ 'answer_questions'|trans:{}:'resource' }}

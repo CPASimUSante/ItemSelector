@@ -43,6 +43,8 @@ console.log(node);
         this.errors = []
         this.errorMessage = null
         this._service = ItemSelectorService
+        this.itemShown = false
+        this.showFS = true
     }
 
     addItem() {
@@ -55,16 +57,22 @@ console.log(node);
     removeItem(itemId) {
         this.itemSelector.items.splice(itemId, 1)
     }
-/*
-    openFullscreen() {
-        // $(".fullframe").css({"position":"fixed","top":0,"left":0,"width":"100%","height":"100%","background-color":"#FFFFFF","z-index":1e4})
-        // $(this).hide();
-        // $(".popin").show();
+
+    saveItems() {
+        console.log("saveItems")
     }
 
-    closeFullscreen {
-        // $(".fullframe").css({"position":"relative"})
-        // $(this).hide();
-        // $(".popout").show();
-    }*/
+    showItems() {
+        this.itemShown = !this.itemShown
+        console.log(this.itemShown)
+    }
+
+    openFullscreen() {
+        // $(".fullframe").css({"position":"fixed","top":0,"left":0,"width":"100%","height":"100%","background-color":"#FFFFFF","z-index":1e4})
+        this.showFS = false
+    }
+
+    closeFullscreen() {
+        this.showFS = true
+    }
 }

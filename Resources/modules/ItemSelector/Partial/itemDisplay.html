@@ -1,16 +1,16 @@
 <div id="activities-evaluations">
-
+{{isc.itemSelector.items|debug}}
     <!-- Display Exercices -->
-    <div id="dfasm" style="display: none;">
+    <div id="dfasm" data-ng-if="isc.itemShown">
         <div class="panel panel-default">
-            <div class="fullframe" style="position: relative">
-                <div class="btn btn-warning popout"><a data-ng-click="ics.openFullscreen()">{{ 'fullpage'|trans({}, 'resource') }}</a></div>
-                <div class="btn btn-warning popin"><a data-ng-click="ics.closeFullscreen()">{{ 'close'|trans({}, 'platform') }}</a></div>
+            <div class="fullframe" style="position: relative" data-ng-class="{'isc-fullscreen':isc.showFS}">
+                <div class="btn btn-warning popout" data-ng-if="!isc.showFS"><a data-ng-click="isc.openFullscreen()">{{ 'fullpage'|trans:{}:'resource' }}</a></div>
+                <div class="btn btn-warning popin" data-ng-if="isc.showFS"><a data-ng-click="isc.closeFullscreen()">{{ 'close'|trans:{}:'platform' }}</a></div>
 
-                <div
-                    ng-repeat="itemSelected in ics.itemSelector.items"
-                    tab-content>
-                </div>
+                <ul class="nav nav-tabs">
+                  <li data-ng-repeat="itemSelected in isc.itemSelector.items" tab-header></li>
+                </ul>
+                <div ng-repeat="itemSelected in isc.itemSelector.items" tab-content></div>
                 <!--
                 {% for item in form.items %}
                     {% set tabs = tabs ~ _self.tabs(loop.index) %}

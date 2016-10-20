@@ -9,6 +9,8 @@ import ItemSelectorService from './Service/ItemSelectorService'
 import ItemSelectorFormDirective from './Directive/ItemSelectorFormDirective'
 import ItemsListDirective from './Directive/ItemsListDirective'
 import ItemDisplayDirective from './Directive/ItemDisplayDirective'
+import TabHeaderDirective from './Directive/TabHeaderDirective'
+import TabContentDirective from './Directive/TabContentDirective'
 
 angular
 .module('ItemSelectorModule', [
@@ -29,6 +31,12 @@ angular
 ])
 .directive('itemDisplay', [
     () => new ItemDisplayDirective()
+])
+.directive('tabHeader', [
+    () => new TabHeaderDirective()
+])
+.directive('tabContent', [
+    () => new TabContentDirective()
 ])
 //translations
 .filter('trans', () => (string, domain = 'platform') =>
