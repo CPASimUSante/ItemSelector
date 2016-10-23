@@ -65,6 +65,7 @@
         window.itemList = {{ itemList|json_encode|raw }}
         window.itemCountMax = {{ itemCountMax }}
         window.itemSelectorId = {{ id }}
+        window.itemResourceTypeName = "{{ itemResourceTypeName }}"
     </script>
     <script src='{{ hotAsset('dist/cpasimusante-item-selector-item-selector.js') }}'></script>
 {% endblock %}

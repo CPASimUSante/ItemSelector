@@ -73,6 +73,7 @@ class ItemSelectorController extends Controller
 
         $itemData = $this->itemSelectorManager->getItems($itemSelector);
         $mainResource = isset($itemData['main']) ? $itemData['main'] : [];
+        $itemResourceTypeName = $this->itemSelectorManager->getResourceType($resourceType);
         $items = isset($itemData['items']) ? $itemData['items'] : [];
         //retrieve the list of items to be displayed in the item select
         $itemlist = $this->itemSelectorManager->getAuthorizedItemList($resourceType, $namePattern, 'name');
@@ -84,6 +85,7 @@ class ItemSelectorController extends Controller
             'itemSelectorItems' => $items,
             'itemList' => $itemlist,
             'itemCountMax' => $config['itemCount'],
+            'itemResourceTypeName' => $itemResourceTypeName,
             'id' => $itemSelector->getId(),
         ];
     }

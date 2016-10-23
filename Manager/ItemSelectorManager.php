@@ -42,6 +42,13 @@ class ItemSelectorManager
         }
     }
 
+    public function getResourceType($resourceType)
+    {
+        $itemResourceType = $this->em->getRepository('ClarolineCoreBundle:Resource\ResourceType')
+            ->findOneById($resourceType);
+        return isset($itemResourceType) ? $itemResourceType->getName() : '';
+    }
+
     public function getItems(ItemSelector $itemSelector)
     {
         $itemSelectorData = [];
@@ -110,6 +117,9 @@ class ItemSelectorManager
         return $items;
     }
 
+    /**
+     * Save the itemSelector.
+     */
     public function saveItemSelector(ItemSelector $itemSelector, $mainItem, $itemSelectorData)
     {
         $this->em->startFlushSuite();

@@ -12,6 +12,7 @@ export default class ItemSelectorService {
         this._itemSelectorItems = ItemSelectorService._getGlobal('itemSelectorItems')
         this._itemList = ItemSelectorService._getGlobal('itemList')
         this._itemCountMax = ItemSelectorService._getGlobal('itemCountMax')
+        this._itemResourceTypeName = ItemSelectorService._getGlobal('itemResourceTypeName')
     }
 
     getItemSelectorId() {
@@ -36,6 +37,10 @@ export default class ItemSelectorService {
 
     getItemCountMax() {
         return this._itemCountMax
+    }
+
+    getItemResourceTypeName() {
+        return this._itemResourceTypeName
     }
 
     saveItemSelector(mainResource, props, onFail) {

@@ -45,6 +45,7 @@ export default class ItemSelectorController {
         this.itemSelectorItems = ItemSelectorService.getItemSelectorItems()
         this.itemList = ItemSelectorService.getItemList()
         this.itemCountMax = ItemSelectorService.getItemCountMax()
+        this.itemResourceTypeName = ItemSelectorService.getItemResourceTypeName()
         this.tabs = ""
         this.errors = []
         this.errorMessage = null
@@ -95,18 +96,12 @@ console.log("this.itemSelectorItems");console.log(this.itemSelectorItems);
         this.showFS = true
     }
 
-    selectTab(tabId) {
+    selectTab(tabId, nodeId) {
         this.currentItem = tabId
-        console.log(tabId);
+        //open resource
         this.currentClickedItemUrl = this.UrlGenerator(
             'claro_resource_open',
-            { 'resourceType': 'ujm_exercise', 'node': 11 }
+            { 'resourceType': this.itemResourceTypeName, 'node': nodeId }
         ) + '?iframe=1'
-        // $(".dfasmcontent").hide();
-        // if ($("#text_content-"+tabId)) {
-        //     $("#text_content-"+tabId).show();
-        //     $(".dfasmtab").parent().removeClass("active");
-        //     $("a[data-id="+tabId+"]").parent().addClass("active");
-        // }
     }
 }
