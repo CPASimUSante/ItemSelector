@@ -1,1 +1,3 @@
-<a data-id="{{ inc }}" class="dfasmtab">{{ 'cpasimusante_itemselector_exerciseid'|trans({'%id%':inc}, 'resource') }}</a>
+<a data-id="{{ $index }}" class="dfasmtab" data-ng-class="{'active':$index==isc.currentItem}" data-ng-click="isc.selectTab($index)">
+    {{ 'cpasimusante_itemselector_exerciseid'|trans:{'id':($index+1)}:'resource' }}
+</a>

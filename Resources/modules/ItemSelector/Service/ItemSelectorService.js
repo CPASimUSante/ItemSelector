@@ -6,31 +6,55 @@ export default class ItemSelectorService {
     constructor ($http, $uibModal) {
         this.$http = $http
         this.$uibModal = $uibModal
+        this._isid = ItemSelectorService._getGlobal('itemSelectorId')
         this._mainResourceType = ItemSelectorService._getGlobal('mainResourceType')
-        this._mainResource = ItemSelectorService._getGlobal('mainResourceType')
-        this._itemSelector = ItemSelectorService._getGlobal('itemSelector')
+        this._itemSelectorMain = ItemSelectorService._getGlobal('itemSelectorMain')
+        this._itemSelectorItems = ItemSelectorService._getGlobal('itemSelectorItems')
         this._itemList = ItemSelectorService._getGlobal('itemList')
-        this._itemCount = ItemSelectorService._getGlobal('itemCount')
+        this._itemCountMax = ItemSelectorService._getGlobal('itemCountMax')
+    }
+
+    getItemSelectorId() {
+        return this._isid
     }
 
     getMainResourceType() {
         return this._mainResourceType
     }
 
-    getMainResource() {
-        return this._mainResource
+    getItemSelectorMain() {
+        return this._itemSelectorMain
     }
 
-    getItemSelector() {
-        return this._itemSelector
+    getItemSelectorItems() {
+        return this._itemSelectorItems
     }
 
     getItemList() {
         return this._itemList
     }
 
-    getItemCount() {
-        return this._itemCount
+    getItemCountMax() {
+        return this._itemCountMax
+    }
+
+    saveItemSelector(mainResource, props, onFail) {
+console.log("mainResource");console.log(mainResource)
+console.log("props");console.log(props)
+        const url = Routing.generate('cpasimusante_itemselector_save', {
+          isid: this._isid
+        })
+
+        this.$http
+          //pass variables to controller
+          .post(url, { mainResource: mainResource, itemSelectorData:props })
+          .then(
+            response => {response.data},
+            //and check if it's alright
+            () => {
+                onFail()
+              }
+          )
     }
 
     //defined in template script
@@ -41,5 +65,25 @@ export default class ItemSelectorService {
         )
       }
       return window[name]
+    }
+
+    /**
+     * Create a new Resource object.
+     *
+     * @param   {string} [type]
+     * @param   {string} [mimeType]
+     * @param   {number} [id]
+     * @param   {string} [name]
+     *
+     * @returns {Object}
+     */
+    newResource(type, mimeType, id, name) {
+      return {
+        id : id ? id : null,
+        name : name ? name : null,
+        type : type ? type : null,
+        mimeType : mimeType ? mimeType : null,
+        propagateToChildren : true
+      }
     }
 }

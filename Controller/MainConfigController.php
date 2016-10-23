@@ -4,7 +4,7 @@ namespace CPASimUSante\ItemSelectorBundle\Controller;
 
 use CPASimUSante\ItemSelectorBundle\Entity\MainConfig;
 use CPASimUSante\ItemSelectorBundle\Form\MainConfigType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+//use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration as EXT;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;

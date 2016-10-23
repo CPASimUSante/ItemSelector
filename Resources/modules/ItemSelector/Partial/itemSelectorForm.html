@@ -1,13 +1,13 @@
 <form novalidate method="post" id="form">
     <div class="panel-body" id="text_content">
         <div data-ng-class="form-group">
-            <div class="col-md-3"><label for="mainresource">{{ 'resource_to_open'|trans:{}:'resource' }}</label></div>
+            <div class="col-md-3"><label for="mainresource">{{ 'resource.to_open'|trans:{}:'resource' }}</label></div>
             <div class="input-group col-md-9">
                 <input type="text"
                     class="form-control text-center"
                     name="mainresource"
                     id="mainresource"
-                    data-ng-model="isc.itemSelector.main.name" />
+                    data-ng-model="isc.itemSelectorMain.name" />
                 <div class="input-group-btn">
                     <btn-resource-picker class="btn btn-default" data-parameters="isc.resourcePicker" data-container="body">
                         <span class="fa fa-folder-open"></span>
@@ -22,7 +22,7 @@
             <div class="col-md-12">
                 <ul class="isel-item">
                     <li class="item"
-                        data-ng-repeat="itemSelected in isc.itemSelector.items"
+                        data-ng-repeat="itemSelected in isc.itemSelectorItems"
                         items-list>
                     </li>
                 </ul>
@@ -34,14 +34,14 @@
     </div>
 
     <div class="panel-footer">
-        <button type="submit" class="btn btn-primary" data-ng-click="isc.saveItems()">{{ 'save'|trans:{}:'platform' }}</button>
-isc.itemSelector.items= {{isc.itemSelector.items|debug}}<br><br>
+        <button type="submit" class="btn btn-primary" data-ng-click="isc.saveItemSelector()">{{ 'save'|trans:{}:'platform' }}</button>
+isc.itemSelectorItems= {{isc.itemSelectorItems|debug}}<br><br>
         <button type="button" class="btn btn-default show-exercices"
-            data-ng-if="isc.itemSelector.items.length>0"
+            data-ng-if="isc.itemSelectorItems.length>0"
             data-ng-click="isc.showItems()"
             data-toggle="tooltip"
-            title="{{ 'watch_exercices'|trans:{}:'resource'}}">
-            <span class="fa fa-eye"></span> {{ 'answer_questions'|trans:{}:'resource' }}
+            title="{{ 'resources.watch'|trans:{}:'resource'}}">
+            <span class="fa fa-eye"></span> {{ 'resources.watch'|trans:{}:'resource' }}
         </button>
     </div>
 </form>

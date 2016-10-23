@@ -1,4 +1,6 @@
 services:
     # Administration
     cpasimusante_itemselector.manager.plugin.itemselector:
-        class:  %cpasimusante_itemselector.manager.plugin.itemselector.class%
+        class: CPASimUSante\ItemSelectorBundle\Manager\ItemSelectorManager
+        arguments:
+            em: @doctrine.orm.entity_manager

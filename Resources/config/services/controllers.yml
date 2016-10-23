@@ -1,14 +1,14 @@
 services:
 # ItemSelector controller
-  cpasimusante_itemselector.controller.itemselector:
-    class: %cpasimusante_itemselector.controller.itemselector.class%
-    calls:
-      - [ setContainer, [ @service_container ]]
-    arguments:
-      itemSelectorManager: @cpasimusante_itemselector.manager.itemselector
+    cpasimusante_itemselector.controller.itemselector:
+        class: CPASimUSante\ItemSelectorBundle\Controller\ItemSelectorController
+        calls:
+            - [ setContainer, [ @service_container ]]
+        arguments:
+            itemSelectorManager: @cpasimusante_itemselector.manager.itemselector
 
-    # ItemSelector controller
+# ItemSelector controller
     cpasimusante_itemselector.controller.mainconfig:
-        class: %cpasimusante_itemselector.controller.mainconfig.class%
+        class: CPASimUSante\ItemSelectorBundle\Controller\MainConfigController
         calls:
             - [ setContainer, [ @service_container ]]

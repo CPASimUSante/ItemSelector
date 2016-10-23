@@ -70,49 +70,66 @@ class ItemSelectorController extends Controller
         $mainResourceType = $config['mainResourceType'];
         $resourceType = $config['resourceType'];
         $namePattern = $config['namePattern'];
-/*
-        $em = $this->getDoctrine()->getManager();
 
-        // Create an ArrayCollection of the current Item objects in the database
-        $originalItems = new ArrayCollection();
-        foreach ($itemSelector->getItems() as $item) {
-            $originalItems->add($item);
-        }
-
-        $form = $this->get('form.factory')
-            ->create(new ItemSelectorType($mainResourceType, $resourceType, $namePattern), $itemSelector);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            // remove the relationship between the item and the ItemSelector
-            foreach ($originalItems as $item) {
-                if (false === $itemSelector->getItems()->contains($item)) {
-                    // in a many-to-one relationship, remove the relationship
-                    $item->setItemSelector(null);
-                    $em->persist($item);
-                    // to delete the Item entirely, you can also do that
-                    $em->remove($item);
-                }
-            }
-
-            $em->persist($itemSelector);
-            $em->flush();
-        }
-*/
-
-        $items = $this->itemSelectorManager->getItems($itemSelector);
+        $itemData = $this->itemSelectorManager->getItems($itemSelector);
+        $mainResource = isset($itemData['main']) ? $itemData['main'] : [];
+        $items = isset($itemData['items']) ? $itemData['items'] : [];
         //retrieve the list of items to be displayed in the item select
         $itemlist = $this->itemSelectorManager->getAuthorizedItemList($resourceType, $namePattern, 'name');
 
         return [
             'mainResourceType' => $mainResourceType,
             '_resource' => $itemSelector,
-            'itemSelector' => $items,
+            'itemSelectorMain' => $mainResource,
+            'itemSelectorItems' => $items,
             'itemList' => $itemlist,
-            'itemCount' => $config['itemCount'],
-  //'form' => $form->createView(),
+            'itemCountMax' => $config['itemCount'],
+            'id' => $itemSelector->getId(),
         ];
     }
+
+    /**
+     * Save the ItemSelector data.
+     *
+     * @EXT\Route("/save/{isid}", name="cpasimusante_itemselector_save", options={"expose"=true})
+     * @EXT\ParamConverter("itemselector", class="CPASimUSanteItemSelectorBundle:ItemSelector", options={"mapping": {"isid" = "id"}})
+     * @EXT\Method("POST")
+     *
+     * @return array
+     */
+     public function saveItemSelectorAction(Request $request, ItemSelector $itemselector)
+     {
+         $user = $this->container->get('security.token_storage')->getToken()->getUser();
+         //$this->assertCanEdit($category->getResult());
+         //retrive the data passed through the AJS CategoryService
+         $mainResource = $request->request->get('mainResource');
+         $itemSelectorData = $request->request->get('itemSelectorData');
+         //create response
+         $response = new JsonResponse();
+         $error = array();
+         //check for errors, server-side
+         if ($mainResource === '') {
+             $error[] = 'Main resource is empty';
+         }
+         foreach ($itemSelectorData as $data) {
+             if (isset($data['propositions'])) {
+                 foreach ($data['propositions'] as $proposition) {
+                     if ($proposition['mark'] != ''
+                         && $proposition['choice'] == '') {
+                         $error[] = "Choice can't be null";
+                     }
+                 }
+             }
+         }
+         if ($error !== []) {
+             $response->setData('<ul><li>'.implode('</li><li>', $error).'</li></ul>');
+             $response->setStatusCode(422);
+         } else {
+             $this->itemSelectorManager->saveItemSelector($itemselector, $mainResource, $itemSelectorData);
+             $response->setStatusCode(200);
+         }
+         return $response;
+     }
 
     /**
      * retrieve configuration for this WS.

@@ -1,10 +1,14 @@
 //the template for modals
 //import addCategoryTemplate from '../Partial/modalAddCategory.html'
 
+import errorTemplate from '../Partial/modalError.html'
+
 export default class ItemSelectorController {
     //no import of Angular stuff ($window, $scope…)
-    constructor($scope, ItemSelectorService) {
+    constructor($scope, url, ItemSelectorService) {
         this.scope = $scope
+        this._service = ItemSelectorService
+        this.UrlGenerator = url
         /**
          * Configuration for the Claroline Resource Picker
          * @type {object}
@@ -19,10 +23,11 @@ export default class ItemSelectorController {
               for (var nodeId in nodes) {
                 if (nodes.hasOwnProperty(nodeId)) {
                   var node = nodes[nodeId]
-console.log(node);
-                  this.mainResource = node[0]
 
-                  break // We need only one node, so only the first one will be kept
+                  // Initialize a new Resource object (parameters : claro type, mime type, id, name)
+                  var resource = ItemSelectorService.newResource(node[1], node[2], nodeId, node[0])
+                  this.itemSelectorMain = resource
+//console.log(node);
                 }
               }
 
@@ -35,31 +40,46 @@ console.log(node);
         }
 
         //declaration of variables
-        this.mainResource = ItemSelectorService.getMainResource()
-        this.itemSelector = ItemSelectorService.getItemSelector()
+        this.mainResourceType = ItemSelectorService.getMainResourceType()
+        this.itemSelectorMain = ItemSelectorService.getItemSelectorMain()
+        this.itemSelectorItems = ItemSelectorService.getItemSelectorItems()
         this.itemList = ItemSelectorService.getItemList()
-        this.itemCount = ItemSelectorService.getItemCount()
-        this.tabs = this.itemSelector.items.length
+        this.itemCountMax = ItemSelectorService.getItemCountMax()
+        this.tabs = ""
         this.errors = []
         this.errorMessage = null
-        this._service = ItemSelectorService
         this.itemShown = false
         this.showFS = true
+        this.lastSaved = {}
+        //item selected in the tab
+        this.currentItem = null
+        //resource to open
+        this.currentClickedItemUrl = null
+console.log("this.itemSelectorMain");console.log(this.itemSelectorMain);
+console.log("this.itemSelectorItems");console.log(this.itemSelectorItems);
     }
 
     addItem() {
-        if (this.itemCount > this.itemSelector.items.length) {
-            let newItem = {"id":(this.itemSelector.items.length+1), "resource":{}}
-            this.itemSelector.items.push(newItem)
+        let itemLength = this.itemSelectorItems.length
+        if (this.itemCountMax > itemLength) {
+            //let newItem = {"id":(itemLength+1), "resource":{}}
+            let newItem = {}
+            this.itemSelectorItems.push(newItem)
         }
     }
 
     removeItem(itemId) {
-        this.itemSelector.items.splice(itemId, 1)
+        this.itemSelectorItems.splice(itemId, 1)
     }
 
-    saveItems() {
-        console.log("saveItems")
+    saveItemSelector(form) {
+        if (form.$valid) {
+            this._service.saveItemSelector(
+              this.mainResource,
+              this.itemSelectorData,
+              () => this._modal(errorTemplate, 'simupoll_save_failure')
+          )
+        }
     }
 
     showItems() {
@@ -68,11 +88,25 @@ console.log(node);
     }
 
     openFullscreen() {
-        // $(".fullframe").css({"position":"fixed","top":0,"left":0,"width":"100%","height":"100%","background-color":"#FFFFFF","z-index":1e4})
         this.showFS = false
     }
 
     closeFullscreen() {
         this.showFS = true
+    }
+
+    selectTab(tabId) {
+        this.currentItem = tabId
+        console.log(tabId);
+        this.currentClickedItemUrl = this.UrlGenerator(
+            'claro_resource_open',
+            { 'resourceType': 'ujm_exercise', 'node': 11 }
+        ) + '?iframe=1'
+        // $(".dfasmcontent").hide();
+        // if ($("#text_content-"+tabId)) {
+        //     $("#text_content-"+tabId).show();
+        //     $(".dfasmtab").parent().removeClass("active");
+        //     $("a[data-id="+tabId+"]").parent().addClass("active");
+        // }
     }
 }

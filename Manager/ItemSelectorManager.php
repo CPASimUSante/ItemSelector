@@ -45,30 +45,35 @@ class ItemSelectorManager
     public function getItems(ItemSelector $itemSelector)
     {
         $itemSelectorData = [];
+
         $itemsSelectorRaw = $this->em
             ->getRepository('CPASimUSanteItemSelectorBundle:ItemSelector')
             ->findOneById($itemSelector->getId());
-
-        if ($itemsSelectorRaw != []) {
+        if (isset($itemsSelectorRaw)) {
+            //get ItemSelector main resource
             $rrn = $itemsSelectorRaw->getResource();
-            $itemSelectorData['main'] = [
-                'id' => $rrn->getId(),
-                'name' => $rrn->getName(),
-            ];
+            if (isset($rrn)) {
+                $itemSelectorData['main'] = [
+                    'id' => $rrn->getId(),
+                    'name' => $rrn->getName(),
+                ];
+            }
 
+            //get ItemSelector items
             $itemsRawData = $this->em->getRepository('CPASimUSanteItemSelectorBundle:Item')
                 ->findByItemselector($itemSelector);
             foreach ($itemsRawData as $item) {
                 $rn = $item->getResourceNode();
                 $itemSelectorData['items'][] = [
-                    'id' => $item->getId(),
-                    'resource' => [
+                    // 'id' => $item->getId(),
+                    // 'resource' => [
                         'id' => $rn->getId(),
                         'name' => $rn->getName()
-                    ]
+                    // ]
                 ];
             }
         }
+
         return $itemSelectorData;
     }
 
@@ -85,7 +90,7 @@ class ItemSelectorManager
         $qb = $rep->createQueryBuilder('rn')
             ->where('rn.resourceType = :resourcetype')
             ->setParameter('resourcetype', $resourceType);
-        if ($namePattern != '') {
+        if ($namePattern !== '') {
             $qb->andWhere('rn.name LIKE :namePattern')
                 ->setParameter('namePattern', $namePattern.'%');
         }
@@ -103,5 +108,27 @@ class ItemSelectorManager
         }
 
         return $items;
+    }
+
+    public function saveItemSelector(ItemSelector $itemSelector, $mainItem, $itemSelectorData)
+    {
+        $this->em->startFlushSuite();
+        //$simupoll->setDescription($description);
+        $this->em->persist($itemSelector);
+        //First remove old
+        $items = $this->em->getRepository('CPASimUSanteItemSelectorBundle:Item')
+            ->findByItemselector($itemSelector);
+        foreach ($items as $itemToDelete) {
+            $this->em->remove($itemToDelete);
+        }
+        //then add new
+        foreach ($itemSelectorData as $item) {
+            //add Item
+            $newItem = new Item();
+            $newItem->setResourceNode($item);
+            $newItem->setItemselector($itemSelector);
+            $this->em->persist($newItem);
+        }
+        $this->em->endFlushSuite();
     }
 }

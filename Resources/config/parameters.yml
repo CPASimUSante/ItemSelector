@@ -2,12 +2,5 @@ parameters:
     # Form types
     cpasimusante_itemselector.form.type.itemselector.class: CPASimUSante\ItemSelectorBundle\Form\ItemSelectorType
 
-    # Controllers
-    cpasimusante_itemselector.controller.itemselector.class: CPASimUSante\ItemSelectorBundle\Controller\ItemSelectorController
-    cpasimusante_itemselector.controller.mainconfig.class: CPASimUSante\ItemSelectorBundle\Controller\MainConfigController
-
     # Listeners
     cpasimusante_itemselector.listener.itemselector.class: CPASimUSante\ItemSelectorBundle\Listener\ItemSelectorListener
-
-    #Managers
-    cpasimusante_itemselector.manager.plugin.itemselector.class: CPASimUSante\ItemSelectorBundle\Manager\ItemSelectorManager

@@ -59,7 +59,7 @@ class ItemSelectorType extends AbstractType
                             'data-type-white-list' => $this->mainResourceType,
                             /*'data-restrict-for-owner'               => 0,*/
                         ],
-                        'label' => 'resource_to_open',
+                        'label' => 'resource.to_open',
                     ]
                 )
                 ->add(
