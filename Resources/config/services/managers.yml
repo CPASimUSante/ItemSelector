@@ -3,4 +3,4 @@ services:
     cpasimusante_itemselector.manager.plugin.itemselector:
         class: CPASimUSante\ItemSelectorBundle\Manager\ItemSelectorManager
         arguments:
-            em: @doctrine.orm.entity_manager
+            om: @claroline.persistence.object_manager

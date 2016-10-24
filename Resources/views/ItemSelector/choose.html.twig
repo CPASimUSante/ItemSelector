@@ -10,30 +10,6 @@
 
 {% block title %}{{ _resource.getResourceNode().getName() | striptags | raw }}{% endblock %}
 
-{% macro isel_prototype(form) %}
-    <table class="table">
-        <tr>
-            <td class="isel_label">{{ form_label(form.resourceNode) }}</td>
-            <td class="isel_widget">{{ form_widget(form.resourceNode) }}</td>
-            <td class="isel_widget">{{ form_errors(form.resourceNode) }}</td>
-        </tr>
-    </table>
-{% endmacro %}
-
-{% macro tabs(inc) %}
-    <li><a href="#" data-id="{{ inc }}" class="dfasmtab">{{ 'cpasimusante_itemselector_exerciseid'|trans({'%id%':inc}, 'resource') }}</a></li>
-{% endmacro %}
-{#
-    tabcontent(inc, datacode)
-    - inc : iframe id
-    - datacode : selected exercise
-#}
-{% macro tabcontent(inc, datacode) %}
-    <div class="panel-body dfasmcontent" id="text_content-{{ inc }}">
-        <iframe class="activity-iframe" src="{{ path('claro_resource_open', { 'resourceType': 'ujm_exercise', 'node': datacode }) }}"></iframe>
-    </div>
-{% endmacro %}
-
 {% block section_content %}
 <div data-ng-app="ItemSelectorModule">
     <div class="panel panel-default">

@@ -3,34 +3,35 @@
 namespace CPASimUSante\ItemSelectorBundle\Manager;
 
 use JMS\DiExtraBundle\Annotation as DI;
+use CPASimUSante\ItemSelectorBundle\Entity\Item;
 use CPASimUSante\ItemSelectorBundle\Entity\ItemSelector;
 use CPASimUSante\ItemSelectorBundle\Exception\NoMainConfigException;
 use CPASimUSante\ItemSelectorBundle\Entity\MainConfig;
-use Doctrine\ORM\EntityManager;
+use Claroline\CoreBundle\Persistence\ObjectManager;
 
 /**
  * @DI\Service("cpasimusante_itemselector.manager.itemselector")
  */
 class ItemSelectorManager
 {
-    private $em;
+    private $om;
 
     /**
      * @DI\InjectParams({
-     *     "em" = @DI\Inject("doctrine.orm.entity_manager")
+     *     "om" = @DI\Inject("claroline.persistence.object_manager")
      * })
      *
      * @param ObjectManager $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(ObjectManager $om)
     {
-        $this->em = $em;
+        $this->om = $om;
     }
 
     public function getMainConfig()
     {
         try {
-            $mainConfig = $this->em->getRepository('CPASimUSanteItemSelectorBundle:MainConfig')
+            $mainConfig = $this->om->getRepository('CPASimUSanteItemSelectorBundle:MainConfig')
                 ->findAll();
             if (sizeof($mainConfig) == 0) {
                 throw new NoMainConfigException();
@@ -44,7 +45,7 @@ class ItemSelectorManager
 
     public function getResourceType($resourceType)
     {
-        $itemResourceType = $this->em->getRepository('ClarolineCoreBundle:Resource\ResourceType')
+        $itemResourceType = $this->om->getRepository('ClarolineCoreBundle:Resource\ResourceType')
             ->findOneById($resourceType);
         return isset($itemResourceType) ? $itemResourceType->getName() : '';
     }
@@ -53,7 +54,7 @@ class ItemSelectorManager
     {
         $itemSelectorData = [];
 
-        $itemsSelectorRaw = $this->em
+        $itemsSelectorRaw = $this->om
             ->getRepository('CPASimUSanteItemSelectorBundle:ItemSelector')
             ->findOneById($itemSelector->getId());
         if (isset($itemsSelectorRaw)) {
@@ -67,7 +68,7 @@ class ItemSelectorManager
             }
 
             //get ItemSelector items
-            $itemsRawData = $this->em->getRepository('CPASimUSanteItemSelectorBundle:Item')
+            $itemsRawData = $this->om->getRepository('CPASimUSanteItemSelectorBundle:Item')
                 ->findByItemselector($itemSelector);
             foreach ($itemsRawData as $item) {
                 $rn = $item->getResourceNode();
@@ -92,7 +93,7 @@ class ItemSelectorManager
     public function getAuthorizedItemList($resourceType, $namePattern, $orderedBy='name')
     {
         //repo of resourceNode
-        $rep = $this->em->getRepository('ClarolineCoreBundle:Resource\ResourceNode');
+        $rep = $this->om->getRepository('ClarolineCoreBundle:Resource\ResourceNode');
         //get only the resource with the specified filters
         $qb = $rep->createQueryBuilder('rn')
             ->where('rn.resourceType = :resourcetype')
@@ -118,27 +119,37 @@ class ItemSelectorManager
     }
 
     /**
-     * Save the itemSelector.
+     * Save the itemSelector data.
      */
-    public function saveItemSelector(ItemSelector $itemSelector, $mainItem, $itemSelectorData)
+    public function saveItemSelector(ItemSelector $itemSelector, $mainResource, $itemSelectorData)
     {
-        $this->em->startFlushSuite();
-        //$simupoll->setDescription($description);
-        $this->em->persist($itemSelector);
-        //First remove old
-        $items = $this->em->getRepository('CPASimUSanteItemSelectorBundle:Item')
+        $this->om->startFlushSuite();
+        $resource = null;
+        if (isset($mainResource['id'])) {
+            $resource = $this->om->getRepository('ClarolineCoreBundle:Resource\ResourceNode')
+                ->findOneById($mainResource['id']);
+        }
+
+        $itemSelector->setResource($resource);
+        $this->om->persist($itemSelector);
+
+        //First remove old items
+        $items = $this->om->getRepository('CPASimUSanteItemSelectorBundle:Item')
             ->findByItemselector($itemSelector);
         foreach ($items as $itemToDelete) {
-            $this->em->remove($itemToDelete);
+            $this->om->remove($itemToDelete);
         }
-        //then add new
-        foreach ($itemSelectorData as $item) {
-            //add Item
-            $newItem = new Item();
-            $newItem->setResourceNode($item);
-            $newItem->setItemselector($itemSelector);
-            $this->em->persist($newItem);
+        //then add new items
+        foreach ($itemSelectorData as $itemData) {
+            if (isset($itemData['id'])) {
+                $newItem = new Item();
+                $resource = $this->om->getRepository('ClarolineCoreBundle:Resource\ResourceNode')
+                    ->findOneById($itemData['id']);
+                $newItem->setResourceNode($resource);
+                $newItem->setItemselector($itemSelector);
+                $this->om->persist($newItem);
+            }
         }
-        $this->em->endFlushSuite();
+        $this->om->endFlushSuite();
     }
 }

@@ -4,7 +4,8 @@
         <select
             class="form-control"
             data-ng-options="item as item.name for item in isc.itemList track by item.id"
-            data-ng-model="itemSelected">
+            data-ng-model="itemSelected"
+            data-ng-change="isc.changedValue(itemSelected, $index)">
             <option value="">{{'select_choice'|trans:{}:'resource'}}</option>
         </select>
     </div>
@@ -12,4 +13,4 @@
 </div>
 <br>
 
-itemSelected = {{itemSelected|debug}}
+<!-- itemSelected = {{itemSelected|debug}} -->

@@ -2,13 +2,11 @@
 
 namespace CPASimUSante\ItemSelectorBundle\Controller;
 
-use CPASimUSante\ItemSelectorBundle\Entity\Item;
 use CPASimUSante\ItemSelectorBundle\Entity\ItemSelector;
-use CPASimUSante\ItemSelectorBundle\Form\ItemSelectorType;
 use CPASimUSante\ItemSelectorBundle\Manager\ItemSelectorManager;
-use Doctrine\Common\Collections\ArrayCollection;
 use JMS\DiExtraBundle\Annotation as DI;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration as EXT;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -108,21 +106,18 @@ class ItemSelectorController extends Controller
          $itemSelectorData = $request->request->get('itemSelectorData');
          //create response
          $response = new JsonResponse();
-         $error = array();
+         $error = [];
          //check for errors, server-side
          if ($mainResource === '') {
              $error[] = 'Main resource is empty';
          }
-         foreach ($itemSelectorData as $data) {
-             if (isset($data['propositions'])) {
-                 foreach ($data['propositions'] as $proposition) {
-                     if ($proposition['mark'] != ''
-                         && $proposition['choice'] == '') {
-                         $error[] = "Choice can't be null";
-                     }
-                 }
-             }
-         }
+
+         foreach ($itemSelectorData as $item) {
+            if (!isset($item)) {
+                $error[] = "Item can't be empty";
+            }
+        }
+         //save data
          if ($error !== []) {
              $response->setData('<ul><li>'.implode('</li><li>', $error).'</li></ul>');
              $response->setStatusCode(422);

@@ -8,11 +8,13 @@ iframe {
     display: block; position: absolute; top: 10px; right: 10px; padding: 3px;
 }
 .popin{
-    position: fixed; top: 10px; right: 10px; padding: 3px; z-index: 10001; display: none;
+    position: fixed; top: 10px; right: 10px; padding: 3px; z-index: 10001;
 }
-.fullframe{position: relative}
-.showfull {position: fixed;top: 0;left: 0;width:100%;height: 100vh;z-index: 10000}
 
+.showfull {position: fixed;top: 0;left: 0;width:100%;height: 100vh;z-index: 10000}
+.isc-notfullscreen{
+    position:relative;
+}
 .isc-fullscreen{
-    position":fixed,top:0,left:0,width:100%,height:100%,background-color:#FFFFFF,z-index:1e4
+    position:fixed;top:0;left:0;width:100%;height:100%;background-color:#c0c0c0;z-index:10000
 }

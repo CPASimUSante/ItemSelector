@@ -1,6 +1,6 @@
-<form novalidate method="post" id="form">
+<form novalidate method="post" name="ISForm">
     <div class="panel-body" id="text_content">
-        <div data-ng-class="form-group">
+        <div class="form-group" data-ng-class="{ 'has-error': !ISForm.mainresource.$valid }">
             <div class="col-md-3"><label for="mainresource">{{ 'resource.to_open'|trans:{}:'resource' }}</label></div>
             <div class="input-group col-md-9">
                 <input type="text"
@@ -21,7 +21,7 @@
             <div class="col-md-12"><label for="mainresource">{{ 'dfasm_items'|trans:{}:'resource' }}</label></div>
             <div class="col-md-12">
                 <ul class="isel-item">
-                    <li class="item"
+                    <li class="item" data-ng-model="itemSelected"
                         data-ng-repeat="itemSelected in isc.itemSelectorItems"
                         items-list>
                     </li>
@@ -34,8 +34,8 @@
     </div>
 
     <div class="panel-footer">
-        <button type="submit" class="btn btn-primary" data-ng-click="isc.saveItemSelector()">{{ 'save'|trans:{}:'platform' }}</button>
-isc.itemSelectorItems= {{isc.itemSelectorItems|debug}}<br><br>
+        <button type="submit" class="btn btn-primary" data-ng-click="isc.saveItemSelector(ISForm)">{{ 'save'|trans:{}:'platform' }}</button>
+<!-- isc.itemSelectorItems= {{isc.itemSelectorItems|debug}}<br><br> -->
         <button type="button" class="btn btn-default show-exercices"
             data-ng-if="isc.itemSelectorItems.length>0"
             data-ng-click="isc.showItems()"

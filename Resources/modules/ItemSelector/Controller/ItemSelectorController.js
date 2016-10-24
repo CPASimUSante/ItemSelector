@@ -56,8 +56,21 @@ export default class ItemSelectorController {
         this.currentItem = null
         //resource to open
         this.currentClickedItemUrl = null
+
+        // const items = this.itemSelectorItems
+        // $scope.$watch(
+        //     () => this.itemSelectorItems,
+        //     true //to be updated when value change
+        // );
+
 console.log("this.itemSelectorMain");console.log(this.itemSelectorMain);
 console.log("this.itemSelectorItems");console.log(this.itemSelectorItems);
+    }
+
+    //updates the array of item values
+    changedValue(itemSelected, index) {
+        this.itemSelectorItems.splice(index, 1)
+        this.itemSelectorItems.splice(index, 0, itemSelected)
     }
 
     addItem() {
@@ -76,8 +89,8 @@ console.log("this.itemSelectorItems");console.log(this.itemSelectorItems);
     saveItemSelector(form) {
         if (form.$valid) {
             this._service.saveItemSelector(
-              this.mainResource,
-              this.itemSelectorData,
+              this.itemSelectorMain,
+              this.itemSelectorItems,
               () => this._modal(errorTemplate, 'simupoll_save_failure')
           )
         }

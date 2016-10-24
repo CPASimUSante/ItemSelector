@@ -44,8 +44,7 @@ export default class ItemSelectorService {
     }
 
     saveItemSelector(mainResource, props, onFail) {
-console.log("mainResource");console.log(mainResource)
-console.log("props");console.log(props)
+
         const url = Routing.generate('cpasimusante_itemselector_save', {
           isid: this._isid
         })

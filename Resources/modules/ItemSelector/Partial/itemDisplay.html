@@ -2,21 +2,22 @@
     <!-- Display Exercices -->
     <div id="dfasm" data-ng-if="isc.itemShown">
         <div class="panel panel-default">
-            <div class="fullframe" style="position: relative" data-ng-class="{'isc-fullscreen':isc.showFS}">
-                <div class="btn btn-warning popout" data-ng-if="!isc.showFS">
+            <div data-ng-class="{'isc-fullscreen':!isc.showFS, 'isc-notfullscreen':isc.showFS}">
+                
+                <div class="btn btn-warning popout" data-ng-if="isc.showFS">
                     <a data-ng-click="isc.openFullscreen()">{{ 'fullpage'|trans:{}:'resource' }}</a>
                 </div>
-                <div class="btn btn-warning popin" data-ng-if="isc.showFS">
+                <div class="btn btn-warning popin" data-ng-if="!isc.showFS">
                     <a data-ng-click="isc.closeFullscreen()">{{ 'close'|trans:{}:'platform' }}</a>
                 </div>
 
                 <ul class="nav nav-tabs">
                     <li data-ng-repeat="itemSelected in isc.itemSelectorItems" tab-header></li>
                 </ul>
+
                 <div ng-repeat="itemSelected in isc.itemSelectorItems" tab-content></div>
-                
+
             </div>
         </div>
     </div>
-
 </div>
